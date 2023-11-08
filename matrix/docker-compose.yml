@@ -6,15 +6,12 @@ services:
     environment:
       - SYNAPSE_SERVER_NAME=matrix.kaizokulabs.com
       - SYNAPSE_REPORT_STATS=no
-    depends_on:
-      - mautrix-telegram
-      - mautrix-discord
     ports:
       - 8008:8008
     volumes:
       - ./data/synapse:/data
-      - ./data/mautrix-discord/registration.yaml:/data/mautrix-discord-registration.yaml
-      - ./data/mautrix-telegram/registration.yaml:/data/mautrix-telegram-registration.yaml
+      - ./data/mautrix-discord/registration.yaml:/apps/mautrix-discord-registration.yaml
+      - ./data/mautrix-telegram/registration.yaml:/apps/mautrix-telegram-registration.yaml
 
   mautrix-telegram:
     container_name: mautrix-telegram
