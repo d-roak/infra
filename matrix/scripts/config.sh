@@ -27,11 +27,16 @@ sed -i "s/api_id: .*/api_id: $TELEGRAM_API_ID/g" ./data/mautrix-telegram/config.
 sed -i "s/api_hash: .*/api_hash: $TELEGRAM_API_HASH/g" ./data/mautrix-telegram/config.yaml
 
 docker compose up mautrix-telegram -d
+sleep 2
+
+chmod +r ./data/mautrix-discord/registration.yaml
+chmod +r ./data/mautrix-telegram/registration.yaml
 
 docker compose run synapse generate
 
+sed -i '$ d' ./data/synapse/homeserver.yaml
 echo "app_service_config_files:
 - /apps/mautrix-telegram-registration.yaml
 - /apps/mautrix-discord-registration.yaml" >> ./data/synapse/homeserver.yaml
 
-docker compose up synapse -d
+docker compose up -d
