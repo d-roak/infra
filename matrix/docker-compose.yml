@@ -1,0 +1,26 @@
+version: '3'
+services:
+  synapse:
+    container_name: synapse
+    image: matrixdotorg/synapse:latest
+    environment:
+      - SYNAPSE_SERVER_NAME=matrix.kaizokulabs.com
+      - SYNAPSE_REPORT_STATS=no
+    ports:
+      - 8008:8008
+    volumes:
+      - ./data/synapse:/data
+
+  mautrix-telegram:
+    container_name: mautrix-telegram
+    image: dock.mau.dev/mautrix/telegram:latest
+    restart: unless-stopped
+    volumes:
+    - ./data/mautrix-telegram:/data
+
+  mautrix-discord:
+    container_name: mautrix-discord
+    image: dock.mau.dev/mautrix/discord:latest
+    restart: unless-stopped
+    volumes:
+    - ./data/mautrix-discord:/data
