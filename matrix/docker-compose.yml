@@ -10,6 +10,8 @@ services:
       - 8008:8008
     volumes:
       - ./data/synapse:/data
+      - ./data/mautrix-discord/registration.yml:/data/mautrix-discord/registration.yml
+      - ./data/mautrix-telegram/registration.yaml:/data/mautrix-telegram/registration.yaml
 
   mautrix-telegram:
     container_name: mautrix-telegram
