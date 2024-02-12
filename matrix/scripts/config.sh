@@ -7,7 +7,7 @@ cd $DIRNAME/..
 docker compose up mautrix-discord
 
 sed -i 's/matrix.example.com/example.com/g' ./data/mautrix-discord/config.yaml
-sed -i 's/example.com/matrix.kaizokulabs.com/g' ./data/mautrix-discord/config.yaml
+sed -i 's/example.com/matrix.droak.sh/g' ./data/mautrix-discord/config.yaml
 sed -i 's/localhost/mautrix-discord/g' ./data/mautrix-discord/config.yaml
 
 sed -i 's/type: postgres/type: sqlite3-fk-wal/g' ./data/mautrix-discord/config.yaml
@@ -19,7 +19,7 @@ docker compose up mautrix-discord -d
 
 docker compose up mautrix-telegram
 
-sed -i 's/example.com/matrix.kaizokulabs.com/g' ./data/mautrix-telegram/config.yaml
+sed -i 's/example.com/matrix.droak.sh/g' ./data/mautrix-telegram/config.yaml
 sed -i 's/localhost/mautrix-telegram/g' ./data/mautrix-telegram/config.yaml
 
 sed -i 's/database: .*/database: sqlite:\/data\/database.db/g' ./data/mautrix-telegram/config.yaml

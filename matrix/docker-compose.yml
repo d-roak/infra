@@ -4,7 +4,7 @@ services:
     container_name: synapse
     image: matrixdotorg/synapse:latest
     environment:
-      - SYNAPSE_SERVER_NAME=matrix.kaizokulabs.com
+      - SYNAPSE_SERVER_NAME=matrix.droak.sh
       - SYNAPSE_REPORT_STATS=no
     ports:
       - 8008:8008
