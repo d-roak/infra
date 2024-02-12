@@ -26,7 +26,7 @@ sed -i 's/database: .*/database: sqlite:\/data\/database.db/g' ./data/mautrix-te
 
 sed -i "s/api_id: .*/api_id: $TELEGRAM_API_ID/g" ./data/mautrix-telegram/config.yaml
 sed -i "s/api_hash: .*/api_hash: $TELEGRAM_API_HASH/g" ./data/mautrix-telegram/config.yaml
-sed -i '0,/default: false/s//default:true/' ./data/mautrix-telegram/config.yaml
+sed -i '0,/default: false/s//default: true/' ./data/mautrix-telegram/config.yaml
 
 docker compose up mautrix-telegram -d
 sleep 2
