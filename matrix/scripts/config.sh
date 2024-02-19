@@ -5,6 +5,7 @@ cd $DIRNAME/..
 
 # generate config.yaml
 docker compose up mautrix-discord
+sleep 1
 
 sed -i 's/matrix.example.com/example.com/g' ./data/mautrix-discord/config.yaml
 sed -i 's/example.com/matrix.droak.sh/g' ./data/mautrix-discord/config.yaml
@@ -18,6 +19,7 @@ sed -i 's/default: false/default: true/g' ./data/mautrix-discord/config.yaml
 docker compose up mautrix-discord -d
 
 docker compose up mautrix-telegram
+sleep 1
 
 sed -i 's/example.com/matrix.droak.sh/g' ./data/mautrix-telegram/config.yaml
 sed -i 's/localhost/mautrix-telegram/g' ./data/mautrix-telegram/config.yaml
@@ -29,16 +31,30 @@ sed -i "s/api_hash: .*/api_hash: $TELEGRAM_API_HASH/g" ./data/mautrix-telegram/c
 sed -i '0,/default: false/s//default: true/' ./data/mautrix-telegram/config.yaml
 
 docker compose up mautrix-telegram -d
+
+docker compose up mautrix-whatsapp
+sleep 1
+
+sed -i 's/matrix.example.com/example.com/g' ./data/mautrix-whatsapp/config.yaml
+sed -i 's/example.com/matrix.droak.sh/g' ./data/mautrix-whatsapp/config.yaml
+sed -i 's/localhost/mautrix-whatsapp/g' ./data/mautrix-whatsapp/config.yaml
+
+sed -i 's/type: postgres/type: sqlite3-fk-wal/g' ./data/mautrix-whatsapp/config.yaml
+sed -i 's/uri: postgres.*/uri: file:\/data\/database.db?_txlock=immediate/g' ./data/mautrix-whatsapp/config.yaml
+
+docker compose up mautrix-whatsapp -d
 sleep 2
 
 chmod +r ./data/mautrix-discord/registration.yaml
 chmod +r ./data/mautrix-telegram/registration.yaml
+chmod +r ./data/mautrix-whatsapp/registration.yaml
 
 docker compose run synapse generate
 
 sed -i '$ d' ./data/synapse/homeserver.yaml
 echo "app_service_config_files:
 - /apps/mautrix-telegram-registration.yaml
-- /apps/mautrix-discord-registration.yaml" >> ./data/synapse/homeserver.yaml
+- /apps/mautrix-discord-registration.yaml
+- /apps/mautrix-whatsapp-registration.yaml" >> ./data/synapse/homeserver.yaml
 
 docker compose up -d

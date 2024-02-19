@@ -12,17 +12,25 @@ services:
       - ./data/synapse:/data
       - ./data/mautrix-discord/registration.yaml:/apps/mautrix-discord-registration.yaml
       - ./data/mautrix-telegram/registration.yaml:/apps/mautrix-telegram-registration.yaml
+      - ./data/mautrix-whatsapp/registration.yaml:/apps/mautrix-whatsapp-registration.yaml
 
   mautrix-telegram:
     container_name: mautrix-telegram
     image: dock.mau.dev/mautrix/telegram:latest
     restart: unless-stopped
     volumes:
-    - ./data/mautrix-telegram:/data
+      - ./data/mautrix-telegram:/data
 
   mautrix-discord:
     container_name: mautrix-discord
     image: dock.mau.dev/mautrix/discord:latest
     restart: unless-stopped
     volumes:
-    - ./data/mautrix-discord:/data
+      - ./data/mautrix-discord:/data
+
+  mautrix-whatsapp:
+    container_name: mautrix-whatsapp
+    image: dock.mau.dev/mautrix/whatsapp:latest
+    restart: unless-stopped
+    volumes:
+      - ./data/mautrix-whatsapp:/data
